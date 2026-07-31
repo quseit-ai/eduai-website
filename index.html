@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>教育 AI 智能体平台 · EDU AI LIMITED — AI 赋能校园一站式解决方案</title>
+<meta name="description" content="面向个人教师与院校机构的教育 AI 智能体平台：零代码搭建教学助手、RAG 知识库、统一安全管控、私有化部署。">
+<link rel="icon" type="image/png" href="favicon-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#16335e;
+  --navy-deep:#0e2547;
+  --blue:#2b7de9;
+  --blue-mid:#4a9bf5;
+  --sky:#8fc1f5;
+  --mist:#d8e7f5;
+  --ice:#eef4fb;
+  --white:#ffffff;
+  --ink:#22344f;
+  --ink-soft:#5b6c84;
+  --amber:#f5820b;
+  --radius:18px;
+  --shadow-sm:0 2px 10px rgba(22,51,94,.08);
+  --shadow-md:0 10px 34px rgba(22,51,94,.14);
+  --shadow-lg:0 24px 60px rgba(22,51,94,.20);
+  --font-display:"Noto Serif SC", serif;
+  --font-body:"Noto Sans SC", sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-body);
+  color:var(--ink);
+  background:var(--white);
+  line-height:1.75;
+  overflow-x:hidden;
+}
+::selection{background:var(--blue);color:#fff}
+h1,h2,h3,.serif{font-family:var(--font-display)}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+section{position:relative}
+
+/* ---------- 滚动显现 ---------- */
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .8s cubic-bezier(.22,.61,.36,1),transform .8s cubic-bezier(.22,.61,.36,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
+.reveal.d4{transition-delay:.32s}.reveal.d5{transition-delay:.4s}
+
+/* ---------- 通用容器与标题 ---------- */
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.sec{padding:110px 0}
+.kicker{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:13px;letter-spacing:.35em;font-weight:700;color:var(--blue);
+  text-transform:uppercase;margin-bottom:16px;
+}
+.kicker::before{content:"";width:34px;height:2px;background:linear-gradient(90deg,var(--amber),var(--blue-mid));border-radius:2px}
+.sec-title{font-size:clamp(28px,3.6vw,44px);font-weight:900;color:var(--navy);line-height:1.3;margin-bottom:14px}
+.sec-sub{color:var(--ink-soft);font-size:17px;max-width:640px}
+.center{text-align:center}
+.center .sec-sub{margin:0 auto}
+.center .kicker{justify-content:center}
+
+/* ---------- 导航 ---------- */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:18px 0;transition:all .35s ease;
+}
+nav.scrolled{background:rgba(255,255,255,.92);backdrop-filter:blur(14px);box-shadow:var(--shadow-sm);padding:10px 0}
+.nav-inner{max-width:1240px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:nowrap;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:900;font-size:18px;color:var(--white);transition:color .35s;white-space:nowrap;flex:none}
+nav.scrolled .logo{color:var(--navy)}
+.logo-mark{
+  width:42px;height:42px;border-radius:12px;flex:none;
+  background:#fff;padding:3px;
+  display:grid;place-items:center;overflow:hidden;
+  box-shadow:0 6px 16px rgba(43,125,233,.35);
+}
+.logo-mark img{width:100%;height:100%;object-fit:contain;display:block}
+.hero-badge img{width:24px;height:24px;border-radius:7px;background:#fff;padding:2px;object-fit:contain}
+.cta-logo{
+  width:118px;height:118px;border-radius:26px;background:#fff;
+  padding:16px;object-fit:contain;display:block;margin:0 auto 32px;
+  box-shadow:0 20px 50px rgba(0,0,0,.35);
+}
+/* SVG 图标尺寸规范 */
+.float-card .ic svg{width:19px;height:19px;color:var(--blue)}
+.pain-card .ic svg{width:25px;height:25px;color:var(--blue)}
+.pain-wide .ic svg{color:#fff}
+.cap-orb .node svg{width:26px;height:26px;color:var(--navy)}
+.cap-item .pip svg{width:21px;height:21px;color:#fff}
+.feat .ic svg{width:21px;height:21px;color:var(--blue)}
+.org-card .ic svg{width:24px;height:24px;color:#fff}
+.case-band .award svg{width:15px;height:15px}
+.contact-card .ic svg{width:22px;height:22px;color:var(--sky)}
+.nav-links{display:flex;gap:22px;list-style:none;font-size:14px;font-weight:500;color:rgba(255,255,255,.85);transition:color .35s;white-space:nowrap;min-width:0}
+nav.scrolled .nav-links{color:var(--ink-soft)}
+.nav-links a{position:relative;padding:4px 0;transition:color .25s}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:2px;background:var(--amber);transition:width .3s}
+.nav-links a:hover{color:var(--amber)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{
+  padding:9px 20px;border-radius:999px;font-size:13.5px;font-weight:700;
+  background:var(--amber);color:var(--navy-deep)!important;
+  transition:transform .25s,box-shadow .25s;white-space:nowrap;flex:none;
+}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(245,130,11,.45)}
+.nav-right{display:flex;align-items:center;gap:10px;flex:none}
+.lang-switch{
+  display:flex;gap:3px;padding:3px;border-radius:999px;
+  background:rgba(255,255,255,.12);border:1px solid rgba(216,231,245,.35);
+  transition:background .35s,border-color .35s;
+}
+nav.scrolled .lang-switch{background:var(--ice);border-color:var(--mist)}
+.lang-switch button{
+  border:none;background:transparent;cursor:pointer;
+  font-family:var(--font-body);font-size:12.5px;font-weight:700;
+  padding:5px 12px;border-radius:999px;color:rgba(255,255,255,.8);
+  transition:all .25s;
+}
+nav.scrolled .lang-switch button{color:var(--ink-soft)}
+.lang-switch button:hover{color:var(--amber)}
+.lang-switch button.active{background:var(--amber);color:var(--navy-deep)}
+@media(max-width:1100px){.nav-links{display:none}}
+
+/* ---------- HERO ---------- */
+.hero{
+  min-height:100vh;display:flex;align-items:center;
+  background:
+    radial-gradient(1200px 600px at 85% -10%,rgba(126,179,224,.35),transparent 60%),
+    radial-gradient(900px 500px at -10% 110%,rgba(74,140,210,.28),transparent 55%),
+    linear-gradient(160deg,var(--navy-deep) 0%,var(--navy) 45%,#1f4a85 100%);
+  color:#fff;overflow:hidden;padding:140px 0 120px;
+}
+.hero-grid-lines{
+  position:absolute;inset:0;pointer-events:none;opacity:.14;
+  background-image:linear-gradient(rgba(255,255,255,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.5) 1px,transparent 1px);
+  background-size:72px 72px;
+  mask-image:radial-gradient(800px 500px at 30% 40%,#000,transparent 75%);
+}
+.hero-inner{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:center;position:relative;z-index:2}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:8px 18px;border-radius:999px;font-size:13px;letter-spacing:.12em;font-weight:500;
+  border:1px solid rgba(126,179,224,.5);background:rgba(126,179,224,.12);color:var(--mist);
+  margin-bottom:28px;animation:fadeUp .9s .1s both;
+}
+.hero-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--amber);box-shadow:0 0 12px var(--amber);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.5}}
+.hero h1{
+  font-size:clamp(38px,5.2vw,64px);font-weight:900;line-height:1.22;
+  letter-spacing:.02em;margin-bottom:22px;animation:fadeUp .9s .22s both;
+}
+.hero h1 em{font-style:normal;background:linear-gradient(92deg,var(--sky),#fff 55%,var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{font-size:19px;color:rgba(216,231,245,.88);max-width:520px;margin-bottom:40px;animation:fadeUp .9s .34s both}
+.hero-actions{display:flex;gap:18px;flex-wrap:wrap;animation:fadeUp .9s .46s both}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:15px 34px;border-radius:999px;font-weight:700;font-size:16px;
+  transition:transform .25s,box-shadow .25s;cursor:pointer;border:none;
+}
+.btn-primary{background:var(--amber);color:var(--navy-deep);box-shadow:0 10px 28px rgba(245,130,11,.35)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(245,130,11,.5)}
+.btn-ghost{border:1.5px solid rgba(216,231,245,.55);color:#fff;background:transparent}
+.btn-ghost:hover{background:rgba(216,231,245,.12);transform:translateY(-3px)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+
+.hero-visual{position:relative;animation:fadeUp 1s .5s both}
+.hero-visual .frame{
+  border-radius:26px;overflow:hidden;box-shadow:var(--shadow-lg);
+  border:1px solid rgba(126,179,224,.35);position:relative;
+}
+.hero-visual .frame img{width:100%;height:420px;object-fit:cover}
+.hero-visual .frame::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(200deg,transparent 55%,rgba(14,37,71,.55));
+}
+.float-card{
+  position:absolute;background:rgba(255,255,255,.96);color:var(--ink);
+  border-radius:14px;padding:14px 20px;box-shadow:var(--shadow-md);
+  display:flex;align-items:center;gap:12px;font-size:14px;font-weight:500;
+}
+.float-card .ic{
+  width:38px;height:38px;border-radius:10px;display:grid;place-items:center;font-size:18px;flex:none;
+  background:linear-gradient(135deg,var(--ice),var(--mist));color:var(--blue);
+}
+.float-card strong{display:block;color:var(--navy);font-size:15px}
+.fc1{top:-24px;left:-34px;animation:bob 5s ease-in-out infinite}
+.fc2{bottom:-22px;right:-26px;animation:bob 6s ease-in-out 1s infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+.hero-wave{position:absolute;bottom:-2px;left:0;width:100%;z-index:3;line-height:0}
+.hero-stats{display:flex;gap:52px;margin-top:56px;animation:fadeUp .9s .58s both}
+.hstat b{font-family:var(--font-display);font-size:34px;font-weight:900;color:var(--amber)}
+.hstat span{display:block;font-size:13px;color:rgba(216,231,245,.7);letter-spacing:.06em;margin-top:2px}
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr}
+  .hero-visual{max-width:520px}
+  .fc1{left:0}.fc2{right:0}
+  .hero-stats{gap:32px;flex-wrap:wrap}
+}
+
+/* ---------- 企业介绍 ---------- */
+.about{background:var(--white)}
+.about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:56px}
+.about-card{
+  background:linear-gradient(180deg,var(--ice),#fff);
+  border:1px solid var(--mist);border-radius:var(--radius);
+  padding:38px 32px;box-shadow:var(--shadow-sm);
+  transition:transform .35s,box-shadow .35s;position:relative;overflow:hidden;
+}
+.about-card::before{
+  content:"";position:absolute;top:0;left:0;width:100%;height:4px;
+  background:linear-gradient(90deg,var(--blue),var(--sky));
+}
+.about-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-md)}
+.about-card h3{font-size:21px;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.about-card h3 .no{
+  font-size:13px;font-weight:700;color:#fff;background:var(--blue);
+  width:30px;height:30px;border-radius:9px;display:grid;place-items:center;flex:none;
+}
+.about-card p,.about-card li{font-size:15px;color:var(--ink-soft)}
+.client-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.client-tags span{
+  padding:6px 14px;border-radius:999px;font-size:13px;font-weight:500;
+  background:#fff;border:1px solid var(--mist);color:var(--blue);
+}
+@media(max-width:900px){.about-grid{grid-template-columns:1fr}}
+
+.mission-band{
+  margin-top:64px;border-radius:24px;padding:52px 56px;
+  background:linear-gradient(120deg,var(--navy-deep),var(--navy) 60%,var(--blue));
+  color:#fff;display:flex;align-items:center;gap:40px;position:relative;overflow:hidden;
+}
+.mission-band::after{
+  content:"";position:absolute;right:-80px;top:-80px;width:320px;height:320px;border-radius:50%;
+  background:radial-gradient(circle,rgba(126,179,224,.35),transparent 70%);
+}
+.mission-band .q-mark{font-family:var(--font-display);font-size:120px;line-height:1;color:var(--amber);flex:none;opacity:.9}
+.mission-band h3{font-size:24px;margin-bottom:10px}
+.mission-band p{color:rgba(216,231,245,.9);font-size:16px;max-width:760px}
+@media(max-width:760px){.mission-band{flex-direction:column;padding:40px 30px}.mission-band .q-mark{font-size:72px}}
+
+/* ---------- 痛点 ---------- */
+.pain{background:linear-gradient(180deg,var(--ice),#fff)}
+.pain-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:56px}
+.pain-card{
+  background:#fff;border-radius:var(--radius);padding:30px 26px;
+  border:1px solid var(--mist);box-shadow:var(--shadow-sm);
+  transition:transform .3s,border-color .3s,box-shadow .3s;position:relative;
+}
+.pain-card:hover{transform:translateY(-6px);border-color:var(--sky);box-shadow:var(--shadow-md)}
+.pain-card .ic{
+  width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-size:24px;
+  background:linear-gradient(135deg,var(--ice),var(--mist));margin-bottom:18px;
+}
+.pain-card h3{font-size:17px;color:var(--navy);margin-bottom:8px}
+.pain-card p{font-size:14px;color:var(--ink-soft)}
+.pain-card .num{
+  position:absolute;top:22px;right:24px;font-family:var(--font-display);
+  font-size:15px;font-weight:900;color:var(--sky);
+}
+.pain-wide{grid-column:span 2;background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;border:none}
+.pain-wide h3{color:#fff}
+.pain-wide p{color:rgba(216,231,245,.85)}
+.pain-wide .ic{background:rgba(255,255,255,.14)}
+.pain-wide .num{color:var(--amber)}
+.pain-q{
+  margin-top:56px;display:grid;grid-template-columns:1fr 1fr;gap:22px;
+}
+.pain-q .q{
+  border-left:4px solid var(--amber);background:#fff;border-radius:0 var(--radius) var(--radius) 0;
+  padding:24px 30px;box-shadow:var(--shadow-sm);font-family:var(--font-display);
+  font-size:17px;color:var(--navy);font-weight:700;
+}
+@media(max-width:960px){.pain-grid{grid-template-columns:repeat(2,1fr)}.pain-wide{grid-column:span 2}}
+@media(max-width:640px){.pain-grid,.pain-q{grid-template-columns:1fr}.pain-wide{grid-column:span 1}}
+
+/* ---------- 核心能力（环形） ---------- */
+.cap{background:var(--navy-deep);color:#fff;overflow:hidden}
+.cap .sec-title,.cap .sec-sub{color:#fff}
+.cap .sec-sub{color:rgba(216,231,245,.75)}
+.cap-stage{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:center;margin-top:60px}
+.cap-orb{
+  position:relative;width:min(420px,80vw);aspect-ratio:1;margin:0 auto;
+}
+.cap-orb .ring{position:absolute;inset:0;border-radius:50%;border:1.5px dashed rgba(126,179,224,.35)}
+.cap-orb .ring.r2{inset:14%;border-color:rgba(126,179,224,.22)}
+.cap-orb .ring.r3{inset:28%;border-color:rgba(126,179,224,.14)}
+.cap-orb .core{
+  position:absolute;inset:34%;border-radius:50%;
+  background:radial-gradient(circle at 32% 28%,var(--blue-mid),var(--navy));
+  display:grid;place-items:center;text-align:center;
+  box-shadow:0 0 80px rgba(74,140,210,.5),inset 0 0 40px rgba(14,37,71,.6);
+  border:1px solid rgba(126,179,224,.5);
+}
+.cap-orb .core b{font-family:var(--font-display);font-size:19px;line-height:1.4;display:block;padding:0 14px}
+.cap-orb .core small{font-size:11px;letter-spacing:.2em;color:var(--sky);display:block;margin-top:6px}
+.cap-orb .node{
+  position:absolute;width:62px;height:62px;border-radius:50%;
+  background:rgba(255,255,255,.97);display:grid;place-items:center;font-size:24px;
+  box-shadow:0 8px 24px rgba(0,0,0,.35);border:3px solid var(--navy-deep);
+  transition:transform .3s;cursor:pointer;
+}
+.cap-orb .node:hover,.cap-orb .node.active{transform:scale(1.14);border-color:var(--amber)}
+.cap-orb .spin{animation:spin 40s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.cap-list{display:flex;flex-direction:column;gap:16px}
+.cap-item{
+  display:flex;gap:20px;align-items:flex-start;
+  padding:22px 26px;border-radius:16px;cursor:pointer;
+  border:1px solid rgba(126,179,224,.18);background:rgba(126,179,224,.06);
+  transition:background .3s,border-color .3s,transform .3s;
+}
+.cap-item:hover,.cap-item.active{background:rgba(126,179,224,.14);border-color:var(--sky);transform:translateX(8px)}
+.cap-item .pip{
+  flex:none;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:20px;
+  background:linear-gradient(135deg,var(--blue),var(--blue-mid));box-shadow:0 6px 16px rgba(46,109,180,.45);
+}
+.cap-item h3{font-size:17px;margin-bottom:4px;color:#fff}
+.cap-item p{font-size:14px;color:rgba(216,231,245,.72)}
+@media(max-width:960px){.cap-stage{grid-template-columns:1fr;gap:44px}}
+
+/* ---------- 架构 ---------- */
+.arch{background:#fff}
+.arch-stack{margin-top:56px;display:flex;flex-direction:column;gap:16px;position:relative}
+.arch-stack::before{
+  content:"";position:absolute;left:50%;top:-24px;bottom:-24px;width:2px;
+  background:linear-gradient(180deg,transparent,var(--mist) 15%,var(--mist) 85%,transparent);
+}
+.layer{
+  position:relative;display:grid;grid-template-columns:220px 1fr;gap:0;
+  border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);
+  border:1px solid var(--mist);background:#fff;transition:transform .3s,box-shadow .3s;
+}
+.layer:hover{transform:scale(1.015);box-shadow:var(--shadow-md)}
+.layer .lab{
+  padding:26px 28px;color:#fff;display:flex;flex-direction:column;justify-content:center;
+  background:linear-gradient(135deg,var(--navy),var(--blue));
+}
+.layer:nth-child(2) .lab{background:linear-gradient(135deg,#1d4276,#3a7cc0)}
+.layer:nth-child(3) .lab{background:linear-gradient(135deg,#24518c,#4a8cd2)}
+.layer:nth-child(4) .lab{background:linear-gradient(135deg,#2b5f9f,#5d9cdb)}
+.layer:nth-child(5) .lab{background:linear-gradient(135deg,#2e6db4,#7eb3e0)}
+.layer .lab b{font-family:var(--font-display);font-size:19px}
+.layer .lab span{font-size:12px;letter-spacing:.18em;opacity:.75;margin-top:4px;text-transform:uppercase}
+.layer .body{padding:24px 30px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.chip{
+  padding:8px 18px;border-radius:999px;font-size:14px;font-weight:500;
+  background:var(--ice);border:1px solid var(--mist);color:var(--ink);
+  transition:background .25s,color .25s,transform .25s;
+}
+.chip:hover{background:var(--blue);color:#fff;transform:translateY(-2px)}
+.layer .body .note{width:100%;font-size:13px;color:var(--ink-soft);margin-top:6px}
+@media(max-width:760px){.layer{grid-template-columns:1fr}.layer .lab{flex-direction:row;align-items:baseline;gap:14px}}
+
+/* ---------- 两种模式 ---------- */
+.modes{background:linear-gradient(180deg,#fff,var(--ice))}
+.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:56px}
+.mode-card{
+  background:#fff;border-radius:22px;overflow:hidden;
+  border:1px solid var(--mist);box-shadow:var(--shadow-sm);
+  transition:transform .35s,box-shadow .35s;
+}
+.mode-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg)}
+.mode-card .head{padding:36px 36px 28px;color:#fff;position:relative}
+.mode-card.personal .head{background:linear-gradient(135deg,var(--blue-mid),var(--sky))}
+.mode-card.org .head{background:linear-gradient(135deg,var(--navy-deep),var(--blue))}
+.mode-card .head .tag{
+  display:inline-block;padding:5px 16px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.1em;
+  background:rgba(255,255,255,.22);margin-bottom:14px;
+}
+.mode-card .head h3{font-size:26px}
+.mode-card .head p{font-size:14px;opacity:.85;margin-top:6px}
+.mode-card .rows{padding:12px 36px 32px}
+.mode-row{display:grid;grid-template-columns:96px 1fr;gap:18px;padding:18px 0;border-bottom:1px dashed var(--mist);font-size:15px}
+.mode-row:last-child{border-bottom:none}
+.mode-row b{color:var(--navy);font-size:14px}
+.mode-row span{color:var(--ink-soft)}
+@media(max-width:820px){.mode-grid{grid-template-columns:1fr}}
+
+/* ---------- 教师方案 ---------- */
+.teacher{background:#fff}
+.t-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-top:56px}
+.feat-list{display:flex;flex-direction:column;gap:14px}
+.feat{
+  display:flex;gap:18px;padding:20px 24px;border-radius:16px;align-items:flex-start;
+  border:1px solid var(--mist);background:linear-gradient(180deg,#fff,var(--ice));
+  transition:transform .3s,box-shadow .3s,border-color .3s;
+}
+.feat:hover{transform:translateX(8px);box-shadow:var(--shadow-md);border-color:var(--sky)}
+.feat .ic{flex:none;width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-size:21px;background:#fff;border:1px solid var(--mist);box-shadow:var(--shadow-sm)}
+.feat h3{font-size:16px;color:var(--navy)}
+.feat p{font-size:14px;color:var(--ink-soft)}
+.steps{
+  background:linear-gradient(160deg,var(--navy-deep),var(--navy) 70%,var(--blue));
+  border-radius:24px;padding:44px 40px;color:#fff;position:sticky;top:110px;overflow:hidden;
+}
+.steps::after{content:"";position:absolute;right:-60px;bottom:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(245,130,11,.25),transparent 70%)}
+.steps h3{font-size:22px;margin-bottom:28px;display:flex;align-items:center;gap:12px}
+.steps h3::before{content:"";width:26px;height:3px;background:var(--amber);border-radius:2px}
+.step{display:flex;gap:20px;padding:18px 0;border-bottom:1px solid rgba(126,179,224,.2)}
+.step:last-of-type{border-bottom:none}
+.step .n{
+  flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;
+  font-family:var(--font-display);font-weight:900;font-size:15px;
+  border:1.5px solid var(--amber);color:var(--amber);
+}
+.step b{display:block;font-size:16px;margin-bottom:2px}
+.step p{font-size:13.5px;color:rgba(216,231,245,.75)}
+.steps .slogan{
+  margin-top:28px;padding:16px 22px;border-radius:14px;text-align:center;
+  background:rgba(245,130,11,.14);border:1px dashed rgba(245,130,11,.6);
+  font-family:var(--font-display);font-weight:700;color:var(--amber);font-size:17px;
+}
+@media(max-width:900px){.t-grid{grid-template-columns:1fr}.steps{position:static}}
+
+/* ---------- 机构方案 ---------- */
+.org{background:linear-gradient(180deg,var(--ice),#fff)}
+.org-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:56px}
+.org-card{
+  background:#fff;border-radius:var(--radius);padding:32px 28px;
+  border:1px solid var(--mist);box-shadow:var(--shadow-sm);
+  transition:transform .3s,box-shadow .3s;
+}
+.org-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md)}
+.org-card .ic{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-size:24px;margin-bottom:18px;background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;box-shadow:0 8px 20px rgba(22,51,94,.3)}
+.org-card h3{font-size:17px;color:var(--navy);margin-bottom:8px}
+.org-card p{font-size:14px;color:var(--ink-soft)}
+.gain-band{
+  margin-top:52px;border-radius:22px;padding:40px 44px;
+  background:#fff;border:1px solid var(--mist);box-shadow:var(--shadow-sm);
+  display:grid;grid-template-columns:repeat(4,1fr);gap:26px;
+}
+.gain{display:flex;gap:14px;align-items:flex-start;font-size:14px;color:var(--ink-soft)}
+.gain .ck{flex:none;width:26px;height:26px;border-radius:50%;background:var(--ice);color:var(--blue);display:grid;place-items:center;font-weight:900;font-size:13px;border:1.5px solid var(--sky)}
+@media(max-width:960px){.org-grid{grid-template-columns:repeat(2,1fr)}.gain-band{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.org-grid,.gain-band{grid-template-columns:1fr}}
+
+/* ---------- 落地计划（时间线） ---------- */
+.plan{background:var(--navy-deep);color:#fff;overflow:hidden}
+.plan .sec-title{color:#fff}.plan .sec-sub{color:rgba(216,231,245,.72)}
+.timeline{margin-top:64px;display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative}
+.timeline::before{
+  content:"";position:absolute;top:26px;left:6%;right:6%;height:2px;
+  background:linear-gradient(90deg,var(--amber),var(--sky),var(--blue-mid));
+}
+.tl{position:relative;padding:0 14px;text-align:center}
+.tl .bead{
+  width:52px;height:52px;margin:0 auto 22px;border-radius:50%;
+  background:radial-gradient(circle at 30% 28%,var(--blue-mid),var(--navy));
+  border:2px solid var(--sky);display:grid;place-items:center;
+  font-family:var(--font-display);font-weight:900;font-size:16px;color:#fff;
+  box-shadow:0 0 0 8px rgba(126,179,224,.12),0 10px 26px rgba(0,0,0,.4);
+  position:relative;z-index:2;transition:transform .3s,border-color .3s;
+}
+.tl:hover .bead{transform:scale(1.15);border-color:var(--amber)}
+.tl h3{font-size:16.5px;margin-bottom:12px;color:#fff}
+.tl ul{list-style:none;font-size:13px;color:rgba(216,231,245,.72);display:flex;flex-direction:column;gap:6px}
+.tl ul li::before{content:"· ";color:var(--amber)}
+@media(max-width:960px){
+  .timeline{grid-template-columns:1fr;gap:34px}
+  .timeline::before{left:26px;right:auto;top:5%;bottom:5%;width:2px;height:auto;background:linear-gradient(180deg,var(--amber),var(--sky),var(--blue-mid))}
+  .tl{display:grid;grid-template-columns:52px 1fr;gap:22px;text-align:left;align-items:start}
+  .tl .bead{margin:0}
+}
+
+/* ---------- 案例 ---------- */
+.cases{background:#fff}
+.quote-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
+.quote{
+  background:linear-gradient(180deg,var(--ice),#fff);border:1px solid var(--mist);
+  border-radius:var(--radius);padding:32px 28px;position:relative;
+  transition:transform .3s,box-shadow .3s;
+}
+.quote:hover{transform:translateY(-6px);box-shadow:var(--shadow-md)}
+.quote::before{
+  content:"“";position:absolute;top:8px;right:22px;
+  font-family:var(--font-display);font-size:72px;color:var(--mist);line-height:1;
+}
+.quote .who{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.quote .av{
+  width:48px;height:48px;border-radius:50%;flex:none;
+  background:linear-gradient(135deg,var(--blue),var(--sky));color:#fff;
+  display:grid;place-items:center;font-family:var(--font-display);font-weight:900;font-size:19px;
+}
+.quote .who b{display:block;color:var(--navy);font-size:15.5px}
+.quote .who span{font-size:12.5px;color:var(--ink-soft)}
+.quote p{font-size:14.5px;color:var(--ink);font-style:italic}
+.quote .save{
+  display:inline-block;margin-top:16px;padding:5px 16px;border-radius:999px;
+  background:rgba(245,130,11,.14);color:#c2670a;font-size:13px;font-weight:700;
+}
+.case-band{
+  margin-top:56px;border-radius:26px;overflow:hidden;
+  background:linear-gradient(120deg,var(--navy-deep),var(--navy) 55%,var(--blue));
+  color:#fff;display:grid;grid-template-columns:1.1fr .9fr;
+}
+.case-band .txt{padding:52px 50px}
+.case-band h3{font-size:26px;margin-bottom:8px}
+.case-band .award{
+  display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--amber);
+  border:1px solid rgba(245,130,11,.5);padding:5px 16px;border-radius:999px;margin:10px 0 22px;
+}
+.case-nums{display:flex;gap:40px;flex-wrap:wrap}
+.case-nums b{font-family:var(--font-display);font-size:36px;font-weight:900;color:var(--amber);display:block;line-height:1.1}
+.case-nums span{font-size:13px;color:rgba(216,231,245,.75)}
+.case-band .side{position:relative;min-height:280px}
+.case-band .side img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9}
+.case-band .side::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--blue) 0%,transparent 45%)}
+.case-mini{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:26px}
+.case-mini .m{
+  border:1px solid var(--mist);border-radius:var(--radius);padding:26px 28px;background:#fff;
+  box-shadow:var(--shadow-sm);transition:transform .3s;
+}
+.case-mini .m:hover{transform:translateY(-5px)}
+.case-mini h4{font-size:16px;color:var(--navy);margin-bottom:8px}
+.case-mini p{font-size:13.5px;color:var(--ink-soft)}
+.case-mini .pill{display:inline-block;margin-top:12px;font-size:12px;font-weight:700;color:var(--blue);background:var(--ice);padding:4px 14px;border-radius:999px}
+.metric-table{margin-top:56px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--mist);box-shadow:var(--shadow-sm)}
+.metric-table table{width:100%;border-collapse:collapse;font-size:15px}
+.metric-table th{
+  background:linear-gradient(90deg,var(--navy),var(--blue));color:#fff;
+  padding:16px 26px;text-align:left;font-family:var(--font-display);letter-spacing:.05em;
+}
+.metric-table td{padding:15px 26px;border-top:1px solid var(--mist);color:var(--ink-soft)}
+.metric-table td:first-child{color:var(--navy);font-weight:700;white-space:nowrap}
+.metric-table tr:hover td{background:var(--ice)}
+@media(max-width:960px){.quote-grid{grid-template-columns:1fr}.case-band{grid-template-columns:1fr}.case-band .side{min-height:220px}.case-mini{grid-template-columns:1fr}}
+
+/* ---------- FAQ ---------- */
+.faq{background:linear-gradient(180deg,var(--ice),#fff)}
+.faq-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:56px}
+.faq-col h3{
+  font-size:17px;color:var(--navy);margin-bottom:20px;display:flex;align-items:center;gap:12px;
+}
+.faq-col h3 .no{font-family:var(--font-display);font-size:13px;color:#fff;background:var(--blue);width:28px;height:28px;border-radius:8px;display:grid;place-items:center;flex:none}
+.acc{border:1px solid var(--mist);border-radius:14px;background:#fff;margin-bottom:14px;overflow:hidden;transition:box-shadow .3s}
+.acc.open{box-shadow:var(--shadow-md)}
+.acc .q{
+  width:100%;text-align:left;background:none;border:none;cursor:pointer;
+  padding:18px 22px;font-size:15px;font-weight:700;color:var(--navy);
+  display:flex;justify-content:space-between;align-items:center;gap:14px;font-family:var(--font-body);
+}
+.acc .q .arr{flex:none;width:24px;height:24px;border-radius:50%;background:var(--ice);color:var(--blue);display:grid;place-items:center;font-size:13px;transition:transform .35s}
+.acc.open .q .arr{transform:rotate(180deg);background:var(--blue);color:#fff}
+.acc .a{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.22,.61,.36,1)}
+.acc .a p{padding:0 22px 20px;font-size:14px;color:var(--ink-soft)}
+@media(max-width:960px){.faq-cols{grid-template-columns:1fr}}
+
+/* ---------- CTA ---------- */
+.cta{
+  background:
+    radial-gradient(900px 420px at 90% 0%,rgba(126,179,224,.3),transparent 60%),
+    linear-gradient(150deg,var(--navy-deep),var(--navy) 55%,#1f4a85);
+  color:#fff;padding:120px 0 140px;overflow:hidden;
+}
+.cta-inner{text-align:center;position:relative;z-index:2}
+.cta h2{font-size:clamp(30px,4vw,48px);font-weight:900;margin-bottom:16px}
+.cta h2 em{font-style:normal;color:var(--amber)}
+.cta .sub{color:rgba(216,231,245,.8);font-size:17px;margin-bottom:50px}
+.cta-steps{display:flex;justify-content:center;gap:0;margin-bottom:54px;flex-wrap:wrap}
+.cta-step{display:flex;align-items:center}
+.cta-step .b{
+  display:flex;align-items:center;gap:12px;padding:14px 28px;border-radius:999px;
+  border:1.5px solid rgba(126,179,224,.45);background:rgba(126,179,224,.1);
+  font-weight:700;font-size:15.5px;
+}
+.cta-step .b i{font-style:normal;font-family:var(--font-display);color:var(--amber);font-size:18px}
+.cta-step .sep{width:44px;height:1.5px;background:linear-gradient(90deg,var(--sky),transparent);margin:0 6px}
+.contact-cards{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;margin-top:44px}
+.contact-card{
+  display:flex;align-items:center;gap:16px;padding:20px 32px;border-radius:16px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(126,179,224,.3);
+  font-size:16px;transition:background .3s,transform .3s;
+}
+.contact-card:hover{background:rgba(255,255,255,.14);transform:translateY(-4px)}
+.contact-card .ic{font-size:22px}
+.contact-card b{font-family:var(--font-display);letter-spacing:.03em}
+
+/* ---------- 页脚 ---------- */
+footer{background:var(--navy-deep);color:rgba(216,231,245,.65);padding:44px 0;font-size:14px}
+.foot-inner{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.foot-inner .brand{display:flex;align-items:center;gap:12px;color:#fff;font-family:var(--font-display);font-weight:900;font-size:17px}
+.foot-inner .brand .logo-mark{width:32px;height:32px;font-size:15px;border-radius:9px}
+</style>
+</head>
+<body>
+
+<!-- ================= 导航 ================= -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a class="logo" href="#top"><span class="logo-mark"><img src="logo-mark.webp" alt="EDU AI"></span>EduAI</a>
+    <ul class="nav-links">
+      <li><a href="#about">企业介绍</a></li>
+      <li><a href="#cap">平台能力</a></li>
+      <li><a href="#arch">产品架构</a></li>
+      <li><a href="#teacher">教师方案</a></li>
+      <li><a href="#org">机构方案</a></li>
+      <li><a href="#cases">落地案例</a></li>
+      <li><a href="#faq">常见问答</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button data-lang="en" onclick="setLang('en')">EN</button>
+        <button data-lang="zh-CN" onclick="setLang('zh-CN')">简</button>
+        <button data-lang="zh-TW" onclick="setLang('zh-TW')">繁</button>
+      </div>
+      <a class="nav-cta" href="#cta">预约演示</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="top">
+  <div class="hero-grid-lines"></div>
+  <div class="wrap hero-inner">
+    <div>
+      <span class="hero-badge"><img src="logo-mark.webp" alt="EDU AI">EDU AI LIMITED · 出品</span>
+      <h1><em>Edu AI Agent</em><br>产品介绍</h1>
+      <p class="lead">面向 AI 赋能校园的一站式整体解决方案 —— 让每一位教师拥有合规可控的 AI 教学助手，让每一所院校实现统一、安全、可持续的智能化升级。</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#cta">预约产品演示 →</a>
+        <a class="btn btn-ghost" href="#cap">了解平台能力</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><b>5–10<small style="font-size:16px"> 小时</small></b><span>教师每周节省工时</span></div>
+        <div class="hstat"><b>7×24</b><span>全天候学生答疑</span></div>
+        <div class="hstat"><b>26+</b><span>兼容教学文件格式</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="frame">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=futuristic%20education%20technology%20classroom%2C%20teacher%20using%20AI%20assistant%20holographic%20interface%2C%20deep%20navy%20blue%20and%20azure%20color%20scheme%2C%20soft%20glowing%20data%20panels%2C%20students%20learning%20with%20tablets%2C%20cinematic%20lighting%2C%20professional%20corporate%20illustration%20style&image_size=landscape_4_3" alt="教育 AI 智能体平台场景">
+      </div>
+      <div class="float-card fc1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span><div><strong>教案自动生成</strong>10 分钟完成备课文稿</div></div>
+      <div class="float-card fc2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 1 1 16.1-3.8z"/></svg></span><div><strong>智能答疑</strong>80% 重复问题自动解决</div></div>
+    </div>
+  </div>
+  <div class="hero-wave">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none" style="width:100%;height:90px;display:block">
+      <path d="M0,50 C240,90 480,10 720,40 C960,70 1200,20 1440,55 L1440,90 L0,90 Z" fill="#ffffff"></path>
+    </svg>
+  </div>
+</header>
+
+<!-- ================= 企业介绍 ================= -->
+<section class="sec about" id="about">
+  <div class="wrap">
+    <div class="reveal"><span class="kicker">About Us</span>
+      <h2 class="sec-title">企业介绍</h2>
+      <p class="sec-sub">企业概况 · 业务合作布局 · 使命与愿景</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-card reveal d1">
+        <h3><span class="no">01</span>企业背景</h3>
+        <p>公司成立于 2022 年，面向中国内地、澳门各类教育机构及教育从业者，提供 AI + 教育整体解决方案。</p>
+        <div class="client-tags">
+          <span>澳门大学</span><span>广西大学</span><span>南宁职业技术大学</span><span>五象湖初级中学</span><span>南宁海晖初级中学</span><span>南宁石埠中学</span><span>南宁罗文中学</span>
+        </div>
+      </div>
+      <div class="about-card reveal d2">
+        <h3><span class="no">02</span>业务拓展合作</h3>
+        <p>2026 年起，与深耕行业超 18 年的香港科技企业 <b style="color:var(--navy)">Six Facet Limited</b> 达成战略合作，主营移动端 / 网页、网格微服务、业务流程管理、API 管理、规则引擎与 AI、协同浏览、开源技术、数据分析、生成式 AI 等 IT 解决方案。</p>
+        <p style="margin-top:12px">配套服务：系统架构设计、标准化应用落地、联合开发、性能故障排查、敏捷模式定制开发。服务客户覆盖政府、银行金融、通信、交通、公共事业单位。</p>
+      </div>
+      <div class="about-card reveal d3">
+        <h3><span class="no">03</span>使命愿景</h3>
+        <p>借助 AI 智能体赋能一线教师与院校机构，打造更高效、优质、沉浸式的教学生态。</p>
+        <div class="client-tags"><span>更高效</span><span>更优质</span><span>沉浸式</span></div>
+      </div>
+    </div>
+    <div class="mission-band reveal">
+      <div class="q-mark">“</div>
+      <div>
+        <h3 class="serif">让 AI 成为每一位教师的得力助手</h3>
+        <p>我们相信，技术的价值在于释放教育者的时间与创造力 —— 把重复交给智能体，把课堂还给师生。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 行业痛点 ================= -->
+<section class="sec pain" id="pain">
+  <div class="wrap">
+    <div class="reveal center">
+      <span class="kicker">Pain Points</span>
+      <h2 class="sec-title">当前教育从业者面临的痛点</h2>
+      <p class="sec-sub">个人教师与院校机构两大维度 —— 无论独立授课教师还是院校在岗教师，都面临工作繁重、资源不足的困境。各层级痛点根源一致，仅规模不同。</p>
+    </div>
+    <div class="pain-grid">
+      <div class="pain-card pain-wide reveal d1">
+        <span class="num">10h+</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <h3>备课批改耗时</h3>
+        <p>每周耗费 10 小时以上用于备课、批改作业，周末全部被备课、批改占用，工作生活严重失衡。</p>
+      </div>
+      <div class="pain-card reveal d2">
+        <span class="num">30 次/日</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+        <h3>重复性学生答疑</h3>
+        <p>同类问题每日重复回复 30 次，教师精力被大量消耗。</p>
+      </div>
+      <div class="pain-card reveal d3">
+        <span class="num">30 档差距</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15v3M12 10v8M17 6v12"/></svg></div>
+        <h3>分层教学难度大</h3>
+        <p>同一个班级学生能力层级差距达 30 档，难以因材施教。</p>
+      </div>
+      <div class="pain-card reveal d1">
+        <span class="num">多平台</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg></div>
+        <h3>系统割裂</h3>
+        <p>教师需要在多个互不连通的平台来回切换，效率低下。</p>
+      </div>
+      <div class="pain-card reveal d2">
+        <span class="num">影子 AI</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2.5 20h19L12 3z"/><path d="M12 10v4M12 17.2h.01"/></svg></div>
+        <h3>AI 使用乱象</h3>
+        <p>教师私自使用外部非合规 AI 工具，存在数据安全与合规风险。</p>
+      </div>
+      <div class="pain-card reveal d3">
+        <span class="num">不均衡</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16M8 20h8M4 7h16"/><path d="M6 7l-2.5 6a3 3 0 0 0 5 0L6 7zM18 7l-2.5 6a3 3 0 0 0 5 0L18 7z"/></svg></div>
+        <h3>AI 使用不均衡</h3>
+        <p>部分教师使用 AI、部分未使用，学生教学体验参差不齐。</p>
+      </div>
+      <div class="pain-card reveal d4">
+        <span class="num">数据孤岛</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/></svg></div>
+        <h3>数据利用率低</h3>
+        <p>学生数据孤立存储，无法为教学优化提供决策支撑。</p>
+      </div>
+    </div>
+    <div class="pain-q">
+      <div class="q reveal d1">如果每周多出 10 小时，你可以做什么？</div>
+      <div class="q reveal d2">如果每位教师都配备合规可控的 AI 智能体，并且校方可以统一管控，教学会发生怎样改变？</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 核心能力 ================= -->
+<section class="sec cap" id="cap">
+  <div class="wrap">
+    <div class="reveal center">
+      <span class="kicker" style="color:var(--sky)">Core Capabilities</span>
+      <h2 class="sec-title">什么是教育 AI 智能体平台？</h2>
+      <p class="sec-sub">五大核心模块，构建完整的校园智能体生态</p>
+    </div>
+    <div class="cap-stage">
+      <div class="cap-orb reveal d1">
+        <div class="ring"></div><div class="ring r2"></div><div class="ring r3"></div>
+        <div class="core"><div><b>Platform<br>Core Capabilities</b><small>五大核心模块</small></div></div>
+        <div class="node" style="top:-4%;left:50%;transform:translateX(-50%)" data-cap="0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="11" rx="2.5"/><path d="M12 8V4M9 4h6"/><path d="M9.5 13h.01M14.5 13h.01M9.5 16.5h5"/><path d="M2 13v3M22 13v3"/></svg></div>
+        <div class="node" style="top:26%;right:-2%" data-cap="1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6.5a4.5 4.5 0 0 0-6 6L3 18l3 3 5.5-5.5a4.5 4.5 0 0 0 6-6L14 13l-3-3 3.5-3.5z"/></svg></div>
+        <div class="node" style="bottom:12%;right:8%" data-cap="2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/><path d="M9 7h7"/></svg></div>
+        <div class="node" style="bottom:12%;left:8%" data-cap="3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div>
+        <div class="node" style="top:26%;left:-2%" data-cap="4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 10a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/></svg></div>
+      </div>
+      <div class="cap-list reveal d2">
+        <div class="cap-item active" data-cap="0"><span class="pip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="11" rx="2.5"/><path d="M12 8V4M9 4h6"/><path d="M9.5 13h.01M14.5 13h.01M9.5 16.5h5"/><path d="M2 13v3M22 13v3"/></svg></span><div><h3>AI 大模型底座</h3><p>适配教育场景的安全大模型（Gemini、GPT、Claude、各类开源大模型）</p></div></div>
+        <div class="cap-item" data-cap="1"><span class="pip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6.5a4.5 4.5 0 0 0-6 6L3 18l3 3 5.5-5.5a4.5 4.5 0 0 0 6-6L14 13l-3-3 3.5-3.5z"/></svg></span><div><h3>AI 智能体搭建工具</h3><p>零代码操作，教师可自定义专属教学助手</p></div></div>
+        <div class="cap-item" data-cap="2"><span class="pip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/><path d="M9 7h7"/></svg></span><div><h3>检索增强知识库 RAG</h3><p>可接入教案、PPT、教学大纲、全部授课素材</p></div></div>
+        <div class="cap-item" data-cap="3"><span class="pip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><div><h3>管控与安全体系</h3><p>分级权限、数据加密、全流程合规管理</p></div></div>
+        <div class="cap-item" data-cap="4"><span class="pip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 10a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/></svg></span><div><h3>第三方系统打通</h3><p>对接教务系统 SIS、学习管理系统 LMS、校内通讯平台</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 平台架构 ================= -->
+<section class="sec arch" id="arch">
+  <div class="wrap">
+    <div class="reveal center">
+      <span class="kicker">Architecture</span>
+      <h2 class="sec-title">教育 AI 智能体平台架构</h2>
+      <p class="sec-sub">自下而上五层体系：从数据底座到场景应用，全链路可控可管</p>
+    </div>
+    <div class="arch-stack">
+      <div class="layer reveal d1">
+        <div class="lab"><b>应用层</b><span>Application</span></div>
+        <div class="body">
+          <span class="chip">教学专用 AI 智能体</span><span class="chip">学生学习 AI 智能体</span><span class="chip">行政办公 AI 智能体</span><span class="chip">学生服务答疑智能体</span>
+        </div>
+      </div>
+      <div class="layer reveal d2">
+        <div class="lab"><b>安全管控层</b><span>Governance</span></div>
+        <div class="body">
+          <span class="chip">分级权限管控</span><span class="chip">全量数据加密</span><span class="chip">操作审计日志</span><span class="chip">用户隐私合规</span>
+          <p class="note">支持本地私有化部署 / 混合部署双模式</p>
+        </div>
+      </div>
+      <div class="layer reveal d3">
+        <div class="lab"><b>智能体调度层</b><span>Agent Orchestration</span></div>
+        <div class="body">
+          <span class="chip">多智能体协同作业</span><span class="chip">工作流引擎</span><span class="chip">复杂任务拆解</span><span class="chip">外部工具调用</span>
+        </div>
+      </div>
+      <div class="layer reveal d4">
+        <div class="lab"><b>大模型层</b><span>Foundation Models</span></div>
+        <div class="body">
+          <span class="chip">Gemini</span><span class="chip">GPT</span><span class="chip">Claude</span><span class="chip">DeepSeek</span><span class="chip">各类开源大模型</span>
+          <p class="note">模型无关架构 · 智能调度 · 可灵活切换大模型</p>
+        </div>
+      </div>
+      <div class="layer reveal d5">
+        <div class="lab"><b>知识数据层</b><span>Knowledge & Data</span></div>
+        <div class="body">
+          <span class="chip">课程教学资源</span><span class="chip">学生档案信息</span><span class="chip">校园规章制度</span><span class="chip">外部教学素材</span>
+          <p class="note">检索增强能力（RAG）</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 两种使用模式 ================= -->
+<section class="sec modes" id="modes">
+  <div class="wrap">
+    <div class="reveal center">
+      <span class="kicker">Two Modes</span>
+      <h2 class="sec-title">一套平台，两种使用方案</h2>
+      <p class="sec-sub">按适用人群灵活选择，个人即刻启用，机构统一部署</p>
+    </div>
+    <div class="mode-grid">
+      <div class="mode-card personal reveal d1">
+        <div class="head">
+          <span class="tag">个人版</span>
+          <h3>面向个人教师</h3>
+          <p>轻量上手，即刻拥有专属 AI 教学助手</p>
+        </div>
+        <div class="rows">
+          <div class="mode-row"><b>适用人群</b><span>中小学教师、高校讲师、课外辅导老师</span></div>
+          <div class="mode-row"><b>权限管控</b><span>素材完全私有，可自主选择分享权限</span></div>
+          <div class="mode-row"><b>上线周期</b><span><b style="color:var(--blue)">1 小时内</b>即可启用</span></div>
+        </div>
+      </div>
+      <div class="mode-card org reveal d2">
+        <div class="head">
+          <span class="tag">机构版</span>
+          <h3>面向院校机构</h3>
+          <p>全校统一部署，集中管控与教师自主并存</p>
+        </div>
+        <div class="rows">
+          <div class="mode-row"><b>适用人群</b><span>中小学、本科高校、职业院校等教育单位</span></div>
+          <div class="mode-row"><b>权限管控</b><span>全校统一部署，集中管控同时保留教师自主操作权限</span></div>
+          <div class="mode-row"><b>上线周期</b><span>完整落地周期 <b style="color:var(--blue)">4–6 周</b></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 个人教师方案 ================= -->
+<section class="sec teacher" id="teacher">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="kicker">For Teachers</span>
+      <h2 class="sec-title">面向个人教师解决方案</h2>
+      <p class="sec-sub">五大核心功能，覆盖备课、出题、批改、答疑、沟通全场景</p>
+    </div>
+    <div class="t-grid">
+      <div class="feat-list">
+        <div class="feat reveal d1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span><div><h3>教案自动生成</h3><p>一键生成完整授课教案，大幅节省备课时间</p></div></div>
+        <div class="feat reveal d2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 7l9 5 9-5-9-5z"/><path d="M3 12l9 5 9-5"/><path d="M3 17l9 5 9-5"/></svg></span><div><h3>分层习题生成</h3><p>自动产出适配不同学生水平的练习卷、测试题</p></div></div>
+        <div class="feat reveal d3"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8.5 12.5l2.5 2.5 5-5.5"/></svg></span><div><h3>作业批改与评语</h3><p>对标评分标准，自动生成作文批改意见</p></div></div>
+        <div class="feat reveal d4"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 1 1 16.1-3.8z"/></svg></span><div><h3>全天候学生答疑</h3><p>7×24 小时承接学生重复提问，减轻教师负担</p></div></div>
+        <div class="feat reveal d5"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/></svg></span><div><h3>学情沟通文稿生成</h3><p>自动撰写家长沟通邮件、学生学情总结</p></div></div>
+      </div>
+      <div class="steps reveal d2">
+        <h3>三步快速启用</h3>
+        <div class="step"><span class="n">01</span><div><b>上传教学素材（10 分钟内）</b><p>PPT、教案、习题、教学大纲</p></div></div>
+        <div class="step"><span class="n">02</span><div><b>AI 个性化训练（10 分钟内）</b><p>AI 学习你的授课内容与教学风格</p></div></div>
+        <div class="step"><span class="n">03</span><div><b>即刻投入使用</b><p>一键生成教案、习题、批改评语等内容</p></div></div>
+        <div class="slogan">教师每周可节省 5–10 小时工作时间</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 院校机构方案 ================= -->
+<section class="sec org" id="org">
+  <div class="wrap">
+    <div class="reveal center">
+      <span class="kicker">For Institutions</span>
+      <h2 class="sec-title">面向院校机构解决方案</h2>
+      <p class="sec-sub">六大核心能力，构建全校统一的智能化教学与管理体系</p>
+    </div>
+    <div class="org-grid">
+      <div class="org-card reveal d1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18"/><path d="M5 4v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4"/><path d="M12 16v3M8 21l4-2 4 2"/></svg></span><h3>教师赋能</h3><p>每位教师零代码搭建专属助手；校方统一部署合规答疑智能体，全天候服务学生</p></div>
+      <div class="org-card reveal d2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5L2 9z"/><path d="M6 11.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5"/><path d="M22 9v6"/></svg></span><h3>学习智能体</h3><p>面向学生的学习智能体，个性化陪伴每位学生的成长路径</p></div>
+      <div class="org-card reveal d3"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4a3 3 0 0 1 6 0"/><path d="M9 11h6M9 15h4"/></svg></span><h3>行政办公智能体</h3><p>自动完成排课、校内咨询、审批流程、各类报表生成</p></div>
+      <div class="org-card reveal d1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V8l7-5 7 5v13"/><path d="M9 21v-4a3 3 0 0 1 6 0v4"/><path d="M12 8.5h.01"/></svg></span><h3>全校集中管控</h3><p>统一分级权限、数据安全、全用户合规管理</p></div>
+      <div class="org-card reveal d2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><h3>全域教学数据分析</h3><p>统计平台使用数据、教学落地效果、全校学生能力提升情况</p></div>
+      <div class="org-card reveal d3"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 10a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/></svg></span><h3>校内系统打通</h3><p>对接现有教务、学习平台及校内全部 IT 系统</p></div>
+    </div>
+    <div class="gain-band reveal">
+      <div class="gain"><span class="ck">✓</span><span>全校师生统一标准化 AI 教学体验</span></div>
+      <div class="gain"><span class="ck">✓</span><span>统一安全合规管控，杜绝教师私自使用外部影子 AI</span></div>
+      <div class="gain"><span class="ck">✓</span><span>技术可持续迭代：模型无关架构，可按需更换大模型</span></div>
+      <div class="gain"><span class="ck">✓</span><span>降本增效：一站式平台替代多款零散工具</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 落地实施计划 ================= -->
+<section class="sec plan" id="plan">
+  <div class="wrap">
+    <div class="reveal center">
+      <span class="kicker" style="color:var(--sky)">Implementation</span>
+      <h2 class="sec-title">机构五阶段落地实施计划</h2>
+      <p class="sec-sub">AI 教育一站式落地服务：从前期规划到长期运营</p>
+    </div>
+    <div class="timeline">
+      <div class="tl reveal d1"><span class="bead">Ⅰ</span><div><h3>校园前期规划</h3><ul><li>校园现状诊断</li><li>落地实施路线规划</li><li>校内教学资源整合</li><li>绩效指标基准设定</li></ul></div></div>
+      <div class="tl reveal d2"><span class="bead">Ⅱ</span><div><h3>AI 工具部署上线</h3><ul><li>教学 AI 平台落地</li><li>行政智能体部署</li></ul></div></div>
+      <div class="tl reveal d3"><span class="bead">Ⅲ</span><div><h3>教师分层培训</h3><ul><li>基础操作培训</li><li>分学科实操教学</li><li>数据安全与 AI 伦理课程</li></ul></div></div>
+      <div class="tl reveal d4"><span class="bead">Ⅳ</span><div><h3>落地效果评估</h3><ul><li>绩效指标持续追踪</li><li>学生综合能力测评</li></ul></div></div>
+      <div class="tl reveal d5"><span class="bead">Ⅴ</span><div><h3>长期持续运维</h3><ul><li>专属技术售后</li><li>教学资源持续更新</li><li>教学落地经验交流</li><li>跨部门、跨院校协同交流</li></ul></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 成功案例 ================= -->
+<section class="sec cases" id="cases">
+  <div class="wrap">
+    <div class="reveal center">
+      <span class="kicker">Success Stories</span>
+      <h2 class="sec-title">成功落地案例</h2>
+      <p class="sec-sub">个人教师落地案例 + 院校规模化落地案例</p>
+    </div>
+
+    <div class="quote-grid">
+      <div class="quote reveal d1">
+        <div class="who"><span class="av">S</span><div><b>Sarah</b><span>香港中学英语教师</span></div></div>
+        <p>“我的 AI 助手 10 分钟就能完成全部备课文稿，我终于拥有完整周末了。”</p>
+        <span class="save">每周节省 5 小时</span>
+      </div>
+      <div class="quote reveal d2">
+        <div class="who"><span class="av">E</span><div><b>Emily</b><span>小学教师</span></div></div>
+        <p>“AI 两分钟就能生成 3 套分层习题，每个学生都能匹配适配的学习内容。”</p>
+        <span class="save">每周节省 6 小时</span>
+      </div>
+      <div class="quote reveal d3">
+        <div class="who"><span class="av">D</span><div><b>David</b><span>高校数学讲师</span></div></div>
+        <p>“学生优先咨询 AI 智能体，80% 问题均可解决，我的工作邮箱终于不再爆满。”</p>
+        <span class="save">每周节省 4 小时</span>
+      </div>
+    </div>
+
+    <div class="case-band reveal">
+      <div class="txt">
+        <h3>西安交通大学「交大智」</h3>
+        <span class="award"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4"/><path d="M7 4h10v6a5 5 0 0 1-10 0V4z"/><path d="M7 6H4a2 2 0 0 0 0 4h3M17 6h3a2 2 0 0 1 0 4h-3"/></svg>2025 年度 AI 教育创新金奖</span>
+        <div class="case-nums">
+          <div><b>23000+</b><span>在校用户</span></div>
+          <div><b>14000+</b><span>自定义智能体</span></div>
+          <div><b>100+</b><span>学科专属插件</span></div>
+        </div>
+      </div>
+      <div class="side">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=modern%20university%20campus%20at%20dusk%2C%20grand%20architecture%20with%20glowing%20windows%2C%20deep%20blue%20twilight%20sky%2C%20students%20walking%20with%20digital%20light%20trails%2C%20professional%20photography%2C%20navy%20blue%20tones&image_size=landscape_4_3" alt="校园案例">
+      </div>
+    </div>
+
+    <div class="case-mini">
+      <div class="m reveal d1">
+        <h4>香港中小学 IntelliQF EdAgent 项目</h4>
+        <p>落地成果：DSE 英文写作辅导智能体、小学 1–6 年级数学学习智能体</p>
+        <span class="pill">本地私有化部署 · 保障本地数据主权</span>
+      </div>
+      <div class="m reveal d2">
+        <h4>香港 XX 中学 Goodclass.ai</h4>
+        <p>落地价值：教师从知识讲授者转型为课堂引导者，校内专属 AI 平台深度嵌入日常课堂</p>
+        <span class="pill">校内专属 AI 平台 · 深度嵌入日常课堂</span>
+      </div>
+    </div>
+
+    <div class="metric-table reveal">
+      <table>
+        <tr><th>效果衡量指标</th><th>说明</th></tr>
+        <tr><td>教师工时节省</td><td>备课、批改、行政事务耗时缩减</td></tr>
+        <tr><td>学生学习参与度</td><td>课堂参与度、学业成绩提升幅度</td></tr>
+        <tr><td>行政办公效率</td><td>事务响应速度、业务处理量提升</td></tr>
+        <tr><td>用户满意度</td><td>平台使用率、师生反馈评分</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 常见问答 ================= -->
+<section class="sec faq" id="faq">
+  <div class="wrap">
+    <div class="reveal center">
+      <span class="kicker">FAQ</span>
+      <h2 class="sec-title">常见问答</h2>
+      <p class="sec-sub">通用问题 · 个人教师专属 · 院校机构专属</p>
+    </div>
+    <div class="faq-cols">
+      <div class="faq-col reveal d1">
+        <h3><span class="no">01</span>通用问题</h3>
+        <div class="acc"><button class="q">使用平台需要专业技术能力吗？<span class="arr">▾</span></button><div class="a"><p>不需要，仅需上传文件、输入文字即可，全程零代码操作。</p></div></div>
+        <div class="acc"><button class="q">支持上传哪些教学素材？<span class="arr">▾</span></button><div class="a"><p>全品类教学文件，PPT、Word、PDF、Excel、图片、视频，兼容 26 种以上文件格式。</p></div></div>
+        <div class="acc"><button class="q">我的教学数据安全吗？<span class="arr">▾</span></button><div class="a"><p>全部素材加密存储，仅用于专属 AI 助手训练，不会用于公共大模型训练。</p></div></div>
+      </div>
+      <div class="faq-col reveal d2">
+        <h3><span class="no">02</span>个人教师专属</h3>
+        <div class="acc"><button class="q">学生可以使用我的 AI 助手吗？<span class="arr">▾</span></button><div class="a"><p>升级专业版后，可开放给最多 30 名学生，提供全天候作业答疑。</p></div></div>
+        <div class="acc"><button class="q">每周大概能节省多少工作时间？<span class="arr">▾</span></button><div class="a"><p>多数教师反馈，备课、批改、行政工作合计每周节省 5–10 小时。</p></div></div>
+        <div class="acc"><button class="q">可以随时停止服务吗？<span class="arr">▾</span></button><div class="a"><p>无长期绑定合约，一键即可随时退订。</p></div></div>
+      </div>
+      <div class="faq-col reveal d3">
+        <h3><span class="no">03</span>院校机构专属</h3>
+        <div class="acc"><button class="q">正式部署前可以先试点测试吗？<span class="arr">▾</span></button><div class="a"><p>完全支持，建议先选取 1-2 个院系 / 年级试点验证效果，再全校推广。</p></div></div>
+        <div class="acc"><button class="q">能否对接校内现有系统？<span class="arr">▾</span></button><div class="a"><p>支持，可打通主流教务 SIS、学习管理 LMS、校内通讯平台。</p></div></div>
+        <div class="acc"><button class="q">如何保障数据合规与数据主权？<span class="arr">▾</span></button><div class="a"><p>提供本地私有化部署、私有云部署两种方案，所有数据可留存本地服务器。</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 合作启动 ================= -->
+<section class="cta" id="cta">
+  <div class="wrap cta-inner">
+    <div class="reveal">
+      <img class="cta-logo" src="logo-512.webp" alt="EDU AI LIMITED">
+      <h2>准备开启校园 <em>AI 数字化转型</em>之旅？</h2>
+      <p class="sub">立即行动，体验 AI 智能体如何重塑教学与校园管理</p>
+    </div>
+    <div class="cta-steps reveal d1">
+      <div class="cta-step"><span class="b"><i>01</i>预约产品演示</span><span class="sep"></span></div>
+      <div class="cta-step"><span class="b"><i>02</i>落地试点测试</span><span class="sep"></span></div>
+      <div class="cta-step"><span class="b"><i>03</i>签约正式部署</span></div>
+    </div>
+    <div class="reveal d2">
+      <a class="btn btn-primary" href="mailto:info@example.com">立即预约演示 →</a>
+    </div>
+    <div class="contact-cards reveal d3">
+      <a class="contact-card" href="mailto:info@example.com"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/></svg></span><span>邮箱：<b>info@example.com</b></span></a>
+      <div class="contact-card"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.13.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.45c.9.34 1.84.57 2.8.7A2 2 0 0 1 22 16.9z"/></svg></span><span>电话：<b>+852 XXXX XXXX</b></span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div class="brand"><span class="logo-mark"><img src="logo-mark.webp" alt="EDU AI"></span>EduAI</div>
+    <div>© 2026 EDU AI LIMITED · 面向 AI 赋能校园的一站式整体解决方案</div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/opencc-js@1.0.5/dist/umd/full.js"></script>
+<script src="i18n.js"></script>
+<script>
+// 导航滚动状态
+const nav = document.getElementById('nav');
+addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 40), {passive:true});
+
+// 滚动显现
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+}), {threshold:.12});
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// 核心能力联动
+const capItems = document.querySelectorAll('.cap-item');
+const capNodes = document.querySelectorAll('.cap-orb .node');
+function setCap(i){
+  capItems.forEach(el => el.classList.toggle('active', el.dataset.cap == i));
+  capNodes.forEach(el => el.classList.toggle('active', el.dataset.cap == i));
+}
+capItems.forEach(el => el.addEventListener('mouseenter', () => setCap(el.dataset.cap)));
+capNodes.forEach(el => el.addEventListener('mouseenter', () => setCap(el.dataset.cap)));
+
+// FAQ 手风琴
+document.querySelectorAll('.acc .q').forEach(btn => btn.addEventListener('click', () => {
+  const acc = btn.parentElement, a = acc.querySelector('.a'), open = acc.classList.contains('open');
+  document.querySelectorAll('.acc.open').forEach(o => { o.classList.remove('open'); o.querySelector('.a').style.maxHeight = 0; });
+  if (!open) { acc.classList.add('open'); a.style.maxHeight = a.scrollHeight + 'px'; }
+}));
+</script>
+</body>
+</html>
