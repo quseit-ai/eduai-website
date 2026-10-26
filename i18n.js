@@ -4,7 +4,7 @@
    以页面简体中文原文为 key，选择记忆于 localStorage
    ============================================================ */
 const I18N_EN = {
-"教育 AI 智能体平台 · EDU AI LIMITED — AI 赋能校园一站式解决方案":"Education AI Agent Platform · EDU AI LIMITED — One-Stop AI Solution for Smart Campuses",
+"教育 AI 智能体平台 · EDUMATE LIMITED — AI 赋能校园一站式解决方案":"Education AI Agent Platform · EDUMATE LIMITED — One-Stop AI Solution for Smart Campuses",
 "面向个人教师与院校机构的教育 AI 智能体平台：零代码搭建教学助手、RAG 知识库、统一安全管控、私有化部署。":"An education AI agent platform for teachers and institutions: no-code teaching assistants, RAG knowledge base, unified governance, and private deployment.",
 "教育 AI 智能体平台场景":"Education AI Agent Platform in action",
 "校园案例":"Campus case study",
@@ -16,7 +16,7 @@ const I18N_EN = {
 "落地案例":"Case Studies",
 "常见问答":"FAQ",
 "预约演示":"Book a Demo",
-"EDU AI LIMITED · 出品":"Presented by EDU AI LIMITED",
+"EDUMATE LIMITED · 出品":"Presented by EDUMATE LIMITED",
 "AI 智能体":"AI Agent",
 "产品介绍":"Platform",
 "面向 AI 赋能校园的一站式整体解决方案 —— 让每一位教师拥有合规可控的 AI 教学助手，让每一所院校实现统一、安全、可持续的智能化升级。":"A one-stop solution for the AI-empowered campus — giving every teacher a compliant, controllable AI assistant, and every institution a unified, secure, sustainable path to intelligent transformation.",
@@ -125,15 +125,14 @@ const I18N_EN = {
 "权限管控":"Access Control",
 "素材完全私有，可自主选择分享权限":"Materials fully private with optional sharing controls",
 "上线周期":"Time to Launch",
-"1 小时内":"Within 1 hour",
-"即可启用":"to go live",
+"订阅成功后即刻启用":"Instantly upon successful subscription",
 "机构版":"Institution",
 "面向院校机构":"For Institutions",
 "全校统一部署，集中管控与教师自主并存":"Campus-wide deployment: centralized governance with teacher autonomy",
 "中小学、本科高校、职业院校等教育单位":"K-12 schools, universities, vocational colleges, and other institutions",
 "全校统一部署，集中管控同时保留教师自主操作权限":"Unified campus deployment with centralized control while preserving teacher autonomy",
 "完整落地周期":"Full rollout in",
-"4–6 周":"4–6 weeks",
+"6–8 周":"6–8 weeks",
 "面向个人教师解决方案":"Solution for Individual Teachers",
 "五大核心功能，覆盖备课、出题、批改、答疑、沟通全场景":"Five core features covering prep, exercises, grading, Q&A, and communication",
 "一键生成完整授课教案，大幅节省备课时间":"Generate complete lesson plans in one click, slashing prep time",
@@ -193,7 +192,7 @@ const I18N_EN = {
 "教学落地经验交流":"Best-practice sharing",
 "跨部门、跨院校协同交流":"Cross-department & cross-institution collaboration",
 "成功落地案例":"Success Stories",
-"个人教师落地案例 + 院校规模化落地案例":"Individual teacher stories + institution-scale deployments",
+"个人教师落地案例":"Individual teacher stories",
 "香港中学英语教师":"Secondary School English Teacher, Hong Kong",
 "“我的 AI 助手 10 分钟就能完成全部备课文稿，我终于拥有完整周末了。”":"\u201CMy AI assistant finishes all my lesson prep in 10 minutes — I finally have my weekends back.\u201D",
 "每周节省 5 小时":"Saves 5 hrs/week",
@@ -232,13 +231,13 @@ const I18N_EN = {
 "全品类教学文件，PPT、Word、PDF、Excel、图片、视频，兼容 26 种以上文件格式。":"All kinds: PPT, Word, PDF, Excel, images, videos — 26+ file formats supported.",
 "我的教学数据安全吗？":"Is my teaching data secure?",
 "全部素材加密存储，仅用于专属 AI 助手训练，不会用于公共大模型训练。":"All materials are encrypted and used only for your own AI assistant — never for public model training.",
+"如何申请和取消订阅？":"How can I apply and cancel subscription?",
+"订阅可按月通过邮件申请，无需长期合约。取消订阅同样可通过邮件申请。":"Subscription can be made on a monthly basis via email request. NO long term contract is required. Cancellation can be made via email request.",
 "个人教师专属":"For Individual Teachers",
 "学生可以使用我的 AI 助手吗？":"Can my students use my AI assistant?",
 "升级专业版后，可开放给最多 30 名学生，提供全天候作业答疑。":"Yes — with the Pro plan, share it with up to 30 students for 24/7 homework help.",
 "每周大概能节省多少工作时间？":"How much time can I save each week?",
 "多数教师反馈，备课、批改、行政工作合计每周节省 5–10 小时。":"Most teachers report saving 5–10 hours per week across prep, grading, and admin.",
-"可以随时停止服务吗？":"Can I cancel anytime?",
-"无长期绑定合约，一键即可随时退订。":"Yes — no long-term contract; cancel in one click.",
 "院校机构专属":"For Institutions",
 "正式部署前可以先试点测试吗？":"Can we run a pilot before full deployment?",
 "完全支持，建议先选取 1-2 个院系 / 年级试点验证效果，再全校推广。":"Absolutely. We recommend piloting with 1–2 departments or grades before campus-wide rollout.",
@@ -256,11 +255,12 @@ const I18N_EN = {
 "立即预约演示 →":"Book Your Demo Now →",
 "邮箱：":"Email:",
 "电话：":"Tel:",
-"© 2026 EDU AI LIMITED · 面向 AI 赋能校园的一站式整体解决方案":"© 2026 EDU AI LIMITED · One-Stop AI Solution for the AI-Empowered Campus"
+"© 2026 EDUMATE LIMITED · 面向 AI 赋能校园的一站式整体解决方案":"© 2026 EDUMATE LIMITED · One-Stop AI Solution for the AI-Empowered Campus"
 };
 
 /* ---------------- 运行时 ---------------- */
-const LANG_KEY = 'eduai-lang';
+const LANG_KEY = 'edumate-lang';
+const LANG_KEY_LEGACY = 'eduai-lang';   // 旧站点名下的语言记忆，首次访问时迁移
 const ORIG = new WeakMap();          // 文本节点 -> 简体原文
 let ccTW = null;                     // OpenCC 简->繁(香港) 转换器
 if (window.OpenCC) { try { ccTW = OpenCC.Converter({ from: 'cn', to: 'hk' }); } catch (e) {} }
@@ -306,4 +306,11 @@ function setLang(lang) {
 }
 
 // 默认英文；读取记忆语言
-applyLang(localStorage.getItem(LANG_KEY) || 'en');
+(function initLang() {
+  let saved = localStorage.getItem(LANG_KEY);
+  if (!saved) {
+    saved = localStorage.getItem(LANG_KEY_LEGACY);
+    if (saved) { localStorage.setItem(LANG_KEY, saved); localStorage.removeItem(LANG_KEY_LEGACY); }
+  }
+  applyLang(saved || 'en');
+})();
