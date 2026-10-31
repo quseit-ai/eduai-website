@@ -137,8 +137,10 @@ nav.scrolled .lang-switch button{color:var(--ink-soft)}
     radial-gradient(900px 500px at -10% 110%,rgba(74,140,210,.28),transparent 55%),
     linear-gradient(160deg,var(--navy-deep) 0%,var(--navy) 45%,#1f4a85 100%);
   color:#fff;overflow:hidden;
-  /* 随视口高度收缩，避免矮屏时内容溢出、波浪切过图片 */
+  /* 随视口高度收缩，避免矮屏时内容溢出 */
   padding:clamp(84px,11vh,140px) 0 clamp(92px,10vh,120px);
+  /* 与下一段之间用平直分隔线，取代原来的弧形波浪 */
+  border-bottom:2px solid rgba(245,130,11,.5);
 }
 .hero-grid-lines{
   position:absolute;inset:0;pointer-events:none;opacity:.14;
@@ -198,8 +200,6 @@ nav.scrolled .lang-switch button{color:var(--ink-soft)}
 .fc2{bottom:-22px;right:-26px;animation:bob 6s ease-in-out 1s infinite}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 
-/* 波浪是背景过渡层，必须在内容之下，避免遮住悬浮卡片 */
-.hero-wave{position:absolute;bottom:-2px;left:0;width:100%;z-index:1;line-height:0;pointer-events:none}
 .hero-stats{display:flex;gap:52px;margin-top:56px;animation:fadeUp .9s .58s both}
 .hstat b{font-family:var(--font-display);font-size:34px;font-weight:900;color:var(--amber)}
 .hstat span{display:block;font-size:13px;color:rgba(216,231,245,.7);letter-spacing:.06em;margin-top:2px}
@@ -659,11 +659,6 @@ footer{background:var(--navy-deep);color:rgba(216,231,245,.65);padding:44px 0;fo
       <div class="float-card fc1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span><div><strong>教案自动生成</strong>10 分钟完成备课文稿</div></div>
       <div class="float-card fc2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 1 1 16.1-3.8z"/></svg></span><div><strong>智能答疑</strong>80% 重复问题自动解决</div></div>
     </div>
-  </div>
-  <div class="hero-wave">
-    <svg viewBox="0 0 1440 90" preserveAspectRatio="none" style="width:100%;height:90px;display:block">
-      <path d="M0,50 C240,90 480,10 720,40 C960,70 1200,20 1440,55 L1440,90 L0,90 Z" fill="#ffffff"></path>
-    </svg>
   </div>
 </header>
 
