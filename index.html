@@ -136,7 +136,9 @@ nav.scrolled .lang-switch button{color:var(--ink-soft)}
     radial-gradient(1200px 600px at 85% -10%,rgba(126,179,224,.35),transparent 60%),
     radial-gradient(900px 500px at -10% 110%,rgba(74,140,210,.28),transparent 55%),
     linear-gradient(160deg,var(--navy-deep) 0%,var(--navy) 45%,#1f4a85 100%);
-  color:#fff;overflow:hidden;padding:140px 0 120px;
+  color:#fff;overflow:hidden;
+  /* 随视口高度收缩，避免矮屏时内容溢出、波浪切过图片 */
+  padding:clamp(84px,11vh,140px) 0 clamp(92px,10vh,120px);
 }
 .hero-grid-lines{
   position:absolute;inset:0;pointer-events:none;opacity:.14;
@@ -171,7 +173,7 @@ nav.scrolled .lang-switch button{color:var(--ink-soft)}
 .btn-ghost:hover{background:rgba(216,231,245,.12);transform:translateY(-3px)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
 
-.hero-visual{position:relative;animation:fadeUp 1s .5s both}
+.hero-visual{position:relative;z-index:3;animation:fadeUp 1s .5s both}
 .hero-visual .frame{
   border-radius:26px;overflow:hidden;box-shadow:var(--shadow-lg);
   border:1px solid rgba(126,179,224,.35);position:relative;
@@ -184,6 +186,7 @@ nav.scrolled .lang-switch button{color:var(--ink-soft)}
 .float-card{
   position:absolute;background:rgba(255,255,255,.96);color:var(--ink);
   border-radius:14px;padding:14px 20px;box-shadow:var(--shadow-md);
+  border:1px solid rgba(22,51,94,.1);
   display:flex;align-items:center;gap:12px;font-size:14px;font-weight:500;
 }
 .float-card .ic{
@@ -195,7 +198,8 @@ nav.scrolled .lang-switch button{color:var(--ink-soft)}
 .fc2{bottom:-22px;right:-26px;animation:bob 6s ease-in-out 1s infinite}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 
-.hero-wave{position:absolute;bottom:-2px;left:0;width:100%;z-index:3;line-height:0}
+/* 波浪是背景过渡层，必须在内容之下，避免遮住悬浮卡片 */
+.hero-wave{position:absolute;bottom:-2px;left:0;width:100%;z-index:1;line-height:0;pointer-events:none}
 .hero-stats{display:flex;gap:52px;margin-top:56px;animation:fadeUp .9s .58s both}
 .hstat b{font-family:var(--font-display);font-size:34px;font-weight:900;color:var(--amber)}
 .hstat span{display:block;font-size:13px;color:rgba(216,231,245,.7);letter-spacing:.06em;margin-top:2px}
@@ -204,6 +208,16 @@ nav.scrolled .lang-switch button{color:var(--ink-soft)}
   .hero-visual{max-width:520px}
   .fc1{left:0}.fc2{right:0}
   .hero-stats{gap:32px;flex-wrap:wrap}
+}
+/* 矮屏（未全屏 / 横向窗口）：压缩 hero，保证波浪落在视口底部而不是切过图片 */
+@media(max-height:860px){
+  .hero-visual .frame img{height:clamp(240px,38vh,420px)}
+  .hero h1{font-size:clamp(32px,4.4vw,52px);margin-bottom:16px}
+  .hero p.lead{font-size:16.5px;margin-bottom:28px}
+  .hero-badge{margin-bottom:18px}
+  .hero-stats{margin-top:32px}
+  .hstat b{font-size:28px}
+  .fc1{top:-18px}.fc2{bottom:-18px}
 }
 
 /* ---------- 企业介绍 ---------- */
